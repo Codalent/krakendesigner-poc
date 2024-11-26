@@ -1,0 +1,10 @@
+@layer components {
+  .button {
+    &--primary {
+    }
+
+    &--secondary {
+      @apply bg-white text-black hover:bg-white/85 transition px-5 py-2.5 rounded;
+    }
+  }
+}

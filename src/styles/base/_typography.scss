@@ -1,0 +1,45 @@
+@layer base {
+  .heading {
+    &--h1 {
+      @apply text-4xl md:text-5xl lg:text-7xl font-bold;
+    }
+
+    &--h2 {
+      @apply text-2xl md:text-4xl lg:text-5xl font-bold;
+    }
+
+    &--h3 {
+      @apply text-2xl md:text-3.5xl font-bold;
+    }
+
+    &--h4 {
+      @apply text-base md:text-lg font-bold;
+    }
+  }
+
+  .text {
+    &--xl {
+      @apply md:text-xl font-medium;
+    }
+
+    &--lg {
+      @apply text-base md:text-lg font-medium;
+    }
+
+    &--sm {
+      @apply text-sm font-medium;
+    }
+
+    &--base {
+      @apply text-base font-medium;
+    }
+
+    &--sm {
+      @apply text-sm font-medium;
+    }
+
+    &--uppercase {
+      @apply uppercase text-sm md:text-base font-semibold tracking-widest;
+    }
+  }
+}
