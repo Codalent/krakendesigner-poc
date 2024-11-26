@@ -1,5 +1,4 @@
 import Sidebar from "@/components/common/sidebar";
-import Header from "@/components/header";
 import localFont from "next/font/local";
 
 const geistSans = localFont({
@@ -18,13 +17,12 @@ export default function Home() {
     <main
       className={`${geistSans.variable} ${geistMono.variable} font-[family-name:var(--font-geist-sans)]`}
     >
-      <Header />
       <div className="grid grid-cols-12 gap-6 h-full">
         <div className="col-span-3 h-full">
           <Sidebar />
         </div>
         <div className="col-span-9">
-          <h1>Hello world</h1>
+          <h1>hello world</h1>
         </div>
       </div>
     </main>
