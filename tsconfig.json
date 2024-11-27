@@ -18,7 +18,7 @@
       "@/components/*": ["./src/components/*"],
       "@/constants/*": ["./src/constants/*"],
       "@/public/*": ["./public/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/utils/*": ["./src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

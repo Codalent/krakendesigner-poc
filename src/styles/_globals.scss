@@ -1,3 +1,19 @@
 .bg--primary {
   @apply bg-brand-neutral-900 text-white;
 }
+
+a {
+  @apply text-brand-blue-100 hover:text-brand-blue-50 transition;
+}
+
+input,
+select {
+  @apply w-full px-4 py-2.5 rounded border outline-1 outline-brand-blue;
+}
+
+code {
+  @apply rounded px-0.5 py-1;
+  font-size: 90%;
+  color: #2752a3;
+  background-color: #f9f2f4;
+}

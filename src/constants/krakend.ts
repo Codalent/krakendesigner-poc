@@ -1,5 +1,5 @@
 export const endpointConstant = {
-  endpoint: "",
+  endpoint: "/v1/abatable-flower/{id_flower}",
   method: "GET",
   output_encoding: "json",
   backend: [
