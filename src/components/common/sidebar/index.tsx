@@ -8,17 +8,17 @@ import {
 } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
+  { name: "Dashboard", href: "/", current: true },
   {
     name: "EndPoints",
     current: false,
     children: true,
   },
-  { name: "Preview", href: "#", current: false },
+  { name: "Preview", href: "/preview", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -28,38 +28,45 @@ function classNames(...classes: string[]) {
 export default function Sidebar() {
   const dispatch = useDispatch<AppDispatch>();
   const { data: endpoints } = useSelector((state: any) => state.endpoints);
-  const router = useRouter();
+  const [currentEndpointTitleIndex, setEndpointTitleIndex] = useState<number>(
+    endpoints.length
+  );
   const addEndpointHandler = () => {
-    const noOfEndpoints = Object.keys(endpoints).length;
     const endPointObj = {
       ...endpointConstant,
-      endpoint: `Endpoint ${noOfEndpoints + 1}`,
+      endpoint: `Endpoint ${currentEndpointTitleIndex + 1}`,
     };
-    dispatch(addEndpoint({ index: noOfEndpoints, data: endPointObj }));
+    setEndpointTitleIndex(currentEndpointTitleIndex + 1);
+    dispatch(addEndpoint(endPointObj));
   };
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+    <div className="flex grow flex-col gap-y-5 border-r pr-6 border-gray-200 py-6">
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
-            <ul role="list" className="-mx-2 space-y-1">
+            <ul role="list" className="space-y-2">
               {navigation.map((item) => (
                 <li key={item.name}>
                   {!item.children ? (
-                    <button
+                    <Link
+                      href={item.href}
                       className={classNames(
-                        item.current ? "bg-gray-50" : "hover:bg-gray-50",
-                        "block cursor-pointer rounded-md py-2 pl-10 pr-2 text-sm/6 font-semibold text-gray-700"
+                        item.current
+                          ? "bg-brand-neutral-150 text-black/80"
+                          : "hover:bg-gray-50 hover:text-black",
+                        "w-full flex cursor-pointer rounded-md py-2 pl-10 pr-2 text-sm/6 font-semibold"
                       )}
                     >
                       {item.name}
-                    </button>
+                    </Link>
                   ) : (
                     <Disclosure as="div">
                       <DisclosureButton
                         className={classNames(
-                          item.current ? "bg-gray-50" : "hover:bg-gray-50",
+                          item.current
+                            ? "bg-brand-neutral-150 text-black"
+                            : "hover:bg-gray-50 hover:text-black text-brand-neutral-50",
                           "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
                         )}
                       >
@@ -73,28 +80,26 @@ export default function Sidebar() {
                         <li>
                           <button
                             className={classNames(
-                              "hover:bg-gray-50",
-                              "block w-full rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                              "hover:bg-brand-neutral-150",
+                              "block w-full rounded-md py-2 pl-9 pr-2 font-medium text-sm/6 hover:bg-brand-neutral-150 hover:text-black text-brand-neutral-50"
                             )}
                             onClick={() => addEndpointHandler()}
                           >
-                            Add Endpoint
+                            + Add Endpoint
                           </button>
                         </li>
-                        {Object.values(endpoints).map(
-                          (endpoint: any, index: number) => {
-                            return (
-                              <li key={index}>
-                                <Link
-                                  href={`/endpoint?target=${endpoint.id}`}
-                                  className="block hover:bg-gray-400 cursor-pointer rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
-                                >
-                                  {endpoint.endpoint}
-                                </Link>
-                              </li>
-                            );
-                          }
-                        )}
+                        {endpoints.map((endpoint: any, index: number) => {
+                          return (
+                            <li key={index}>
+                              <Link
+                                href={`/endpoints?target=${index}`}
+                                className="flex hover:bg-brand-neutral-150 cursor-pointer rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                              >
+                                {endpoint.endpoint}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </DisclosurePanel>
                     </Disclosure>
                   )}

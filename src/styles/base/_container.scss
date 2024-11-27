@@ -1,0 +1,23 @@
+@layer components {
+  .container {
+    &--xxs {
+      @apply px-4 md:px-6 mx-auto w-full;
+      max-width: 1044px;
+    }
+
+    &--boxed {
+      @apply px-4 md:px-6 mx-auto w-full;
+      max-width: 1248px;
+    }
+
+    &--xxl {
+      @apply px-4 md:px-6 lg:px-8 mx-auto w-full;
+      max-width: 1464px;
+    }
+
+    &--3xl {
+      @apply px-4 md:px-6 lg:px-8 mx-auto w-full;
+      max-width: 1728px;
+    }
+  }
+}

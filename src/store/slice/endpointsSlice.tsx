@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: {},
+  data: [],
 };
 
 const endpointsSlice = createSlice({
@@ -9,17 +9,17 @@ const endpointsSlice = createSlice({
   initialState,
   reducers: {
     addEndpoint: (state: any, action: any) => {
-      state.data = {
-        ...state.data,
-        [action.payload.index]: {
-          id: action.payload.index,
-          ...action.payload.data,
-        },
-      };
+      state.data = [...state.data, action.payload];
     },
-    removeEndpoint: (state, action) => {},
+    updateEndpoint: (state: any, action: any) => {
+      state.data = action.payload;
+    },
+    removeEndpoint: (state, action) => {
+      state.data = state.data.filter((_, index) => index !== action.payload);
+    },
   },
 });
 
 export default endpointsSlice;
-export const { addEndpoint, removeEndpoint } = endpointsSlice.actions;
+export const { addEndpoint, removeEndpoint, updateEndpoint } =
+  endpointsSlice.actions;
