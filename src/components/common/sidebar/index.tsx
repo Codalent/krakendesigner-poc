@@ -8,17 +8,17 @@ import {
 } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
+  { name: "Dashboard", href: "/", current: true },
   {
     name: "EndPoints",
     current: false,
     children: true,
   },
-  { name: "Preview", href: "#", current: false },
+  { name: "Preview", href: "/preview", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -28,14 +28,16 @@ function classNames(...classes: string[]) {
 export default function Sidebar() {
   const dispatch = useDispatch<AppDispatch>();
   const { data: endpoints } = useSelector((state: any) => state.endpoints);
-  const router = useRouter();
+  const [currentEndpointTitleIndex, setEndpointTitleIndex] = useState<number>(
+    endpoints.length
+  );
   const addEndpointHandler = () => {
-    const noOfEndpoints = Object.keys(endpoints).length;
     const endPointObj = {
       ...endpointConstant,
-      endpoint: `Endpoint ${noOfEndpoints + 1}`,
+      endpoint: `Endpoint ${currentEndpointTitleIndex + 1}`,
     };
-    dispatch(addEndpoint({ index: noOfEndpoints, data: endPointObj }));
+    setEndpointTitleIndex(currentEndpointTitleIndex + 1);
+    dispatch(addEndpoint(endPointObj));
   };
 
   return (
@@ -47,7 +49,8 @@ export default function Sidebar() {
               {navigation.map((item) => (
                 <li key={item.name}>
                   {!item.children ? (
-                    <button
+                    <Link
+                      href={item.href}
                       className={classNames(
                         item.current
                           ? "bg-brand-neutral-150 text-black/80"
@@ -56,7 +59,7 @@ export default function Sidebar() {
                       )}
                     >
                       {item.name}
-                    </button>
+                    </Link>
                   ) : (
                     <Disclosure as="div">
                       <DisclosureButton
@@ -85,20 +88,18 @@ export default function Sidebar() {
                             + Add Endpoint
                           </button>
                         </li>
-                        {Object.values(endpoints).map(
-                          (endpoint: any, index: number) => {
-                            return (
-                              <li key={index}>
-                                <Link
-                                  href={`/endpoint?target=${endpoint.id}`}
-                                  className="flex hover:bg-brand-neutral-150 cursor-pointer rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
-                                >
-                                  {endpoint.endpoint}
-                                </Link>
-                              </li>
-                            );
-                          }
-                        )}
+                        {endpoints.map((endpoint: any, index: number) => {
+                          return (
+                            <li key={index}>
+                              <Link
+                                href={`/endpoints?target=${index}`}
+                                className="flex hover:bg-brand-neutral-150 cursor-pointer rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                              >
+                                {endpoint.endpoint}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </DisclosurePanel>
                     </Disclosure>
                   )}
