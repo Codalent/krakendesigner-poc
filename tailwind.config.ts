@@ -31,7 +31,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         brand: {
+          red: {
+            DEFAULT: ""
+          },
+          green: {
+            DEFAULT: "#00a65a"
+          },
           blue: {
+            50: "#72afd2",
+            100: "#3c8dbc",
             DEFAULT: "#0071CE",
             500: "#0f265c",
           },
@@ -52,6 +60,13 @@ const config: Config = {
       },
     },
   },
+  safelist: [
+    'bg-blue-500',
+    'bg-green-500',
+    'bg-teal-500',
+    'bg-yellow-500',
+    'bg-red-500'
+  ],
   plugins: [],
 };
 export default config;

@@ -3,7 +3,7 @@ import Image from "next/image";
 function Footer() {
   return (
     <footer className="bg-brand-blue-500 section--sm text-white">
-      <div className="container--boxed">
+      <div>
         <div className="flex flex-col gap-5 lg:flex-row items-center justify-between">
           <div>
             <Image

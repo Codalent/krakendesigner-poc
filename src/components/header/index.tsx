@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { faFolderOpen, faCopy, faEye } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -16,12 +17,34 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: endpoints } = useSelector((state: any) => state.endpoints);
+
+  // Opens KrakenD config new tab
+  const openConfig = () => {
+    const config = {
+      $schema: "https://www.krakend.io/schema/krakend.json",
+      version: 3,
+      name: "KrakenD - API Gateway",
+      timeout: "3000ms",
+      cache_ttl: "300s",
+    };
+
+    if (endpoints.length > 0) {
+      config["endpoints"] = endpoints;
+    }
+
+    const configWindow = window.open();
+    configWindow?.document.write(
+      `<pre>${JSON.stringify(config, null, 2)}</pre>`
+    );
+    configWindow?.focus();
+  };
 
   return (
     <header className="bg-brand-blue">
-      <div className="container--boxed">
-        <nav aria-label="Global" className="flex items-center py-6">
-          <div className="flex">
+      <div>
+        <nav aria-label="Global" className="flex items-center py-4">
+          <div className="flex ml-10">
             <Link href="/" className="p-1.5">
               <span className="sr-only">KrakenD</span>
               <KrakendLogo width={157} height={31} />
@@ -43,7 +66,7 @@ export default function Header() {
               <span>Designer</span>
             </button>
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:space-x-5">
+          <div className="hidden mr-10 lg:flex lg:flex-1 lg:justify-end lg:space-x-5">
             <button className="button--secondary">
               <FontAwesomeIcon icon={faFolderOpen} className="mr-1" />
               Open a local file <samp>(^O)</samp>
@@ -52,7 +75,7 @@ export default function Header() {
               <FontAwesomeIcon icon={faCopy} className="mr-1" />
               Download config <samp>(^D)</samp>
             </button>
-            <button className="button--secondary">
+            <button className="button--secondary" onClick={openConfig}>
               <FontAwesomeIcon icon={faEye} className="mr-1" />
               View config <samp>(^E)</samp>
             </button>
