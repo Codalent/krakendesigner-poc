@@ -7,7 +7,7 @@ const PillColors: PillColorProps = {
   "DEFAULT": "default"
 }
 
-function getPillColor(pill: string): string {
+function getPillColor(pill: string): PillColors {
 
   if (PillColors[pill]) {
     return PillColors[pill]
@@ -19,5 +19,5 @@ function getPillColor(pill: string): string {
 export default getPillColor
 
 type PillColorProps = {
-  [key: string]: string
+  [key: string]: PillColors
 }

@@ -1,5 +1,3 @@
-import { SelectOptions } from "@/components/common/inputs/types";
-
 const methodsOptions: SelectOptions = [
   {
     value: "GET",

@@ -1,12 +1,11 @@
 import { endpointConstant } from "@/constants/krakend";
+import getPillColor from "@/constants/pillColors";
 import { addEndpoint } from "@/store/slice/endpointsSlice";
-import { AppDispatch } from "@/store/store";
+import classNames from "@/utils/classNames";
 import {
   faAngleLeft,
   faArrowsToEye,
   faDashboard,
-  faEyeDropperEmpty,
-  faEyeLowVision,
   faList,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -20,8 +19,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pill from "../pill";
-import getPillColor from "@/constants/pillColors";
-import classNames from "@/utils/classNames";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true, icon: faDashboard },
@@ -29,6 +26,7 @@ const navigation = [
     name: "EndPoints",
     current: false,
     children: true,
+    href: "",
   },
   {
     name: "Preview",
@@ -39,8 +37,8 @@ const navigation = [
 ];
 
 export default function Sidebar() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { data: endpoints } = useSelector((state: any) => state.endpoints);
+  const dispatch = useDispatch();
+  const { data: endpoints } = useSelector((state) => state.endpoints);
   const [currentEndpointTitleIndex, setEndpointTitleIndex] = useState<number>(
     endpoints.length
   );

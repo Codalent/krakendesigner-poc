@@ -2,7 +2,7 @@ import React from "react";
 
 type PillProps = {
   title: string;
-  color?: "danger" | "success" | "warning" | "info" | "default";
+  color?: PillColors;
   size?: "small";
   className?: string;
 };

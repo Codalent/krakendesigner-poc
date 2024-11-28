@@ -1,13 +1,17 @@
 import Input from "@/components/common/inputs/input";
+import { RootState } from "@/store/slice";
 import { updateConfig } from "@/store/slice/configSlice";
 import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
-  const config = useSelector((store: any) => store.config);
+  const config = useSelector((store: RootState) => store.config);
   const dispatch = useDispatch();
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>, key: string) => {
+  const handleInput = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    key: string
+  ) => {
     const { value } = e.target;
     dispatch(updateConfig({ key, value }));
   };

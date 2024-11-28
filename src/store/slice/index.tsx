@@ -1,3 +1,4 @@
+import store from "../store";
 import configSlice from "./configSlice";
 import endpointsSlice from "./endpointsSlice";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -7,4 +8,5 @@ const rootReducer = combineReducers({
   endpoints: endpointsSlice.reducer,
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export default rootReducer;

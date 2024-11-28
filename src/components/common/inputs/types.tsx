@@ -1,10 +1,12 @@
+import { ChangeEventHandler, SelectHTMLAttributes } from "react";
+
 export interface InputProps {
   info?: string | React.ReactNode;
   inputClassName?: string;
   label: string;
   labelClassName?: string;
   name: string;
-  onChange: any;
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
   placeholder?: string;
   value: string;
   wrapperClassName?: string;

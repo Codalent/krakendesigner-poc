@@ -8,6 +8,7 @@ import {
   outputEncodingOptions,
 } from "@/constants/inputs";
 import getPillColor from "@/constants/pillColors";
+import { RootState } from "@/store/slice";
 import { removeEndpoint, updateEndpoint } from "@/store/slice/endpointsSlice";
 import { AppDispatch } from "@/store/store";
 import { deepCopy } from "@/utils";
@@ -20,7 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 export default function endPoint() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const { data: endpoints } = useSelector((state: any) => state.endpoints);
+  const { data: endpoints } = useSelector(
+    (state: RootState) => state.endpoints
+  );
 
   const [krakendEndpoints, setKrakendEndpoints] = useState(endpoints);
   const [openEndpoint, setOpenEndpoint] = useState<any>(
@@ -118,7 +121,7 @@ export default function endPoint() {
                       treated as <strong>wildcards</strong>.
                     </span>
                   }
-                  onChange={(e: any) =>
+                  onChange={(e) =>
                     updatedEndpointDataHandler(
                       index,
                       "endpoint",
@@ -131,7 +134,7 @@ export default function endPoint() {
                   label="Method"
                   value={endpoint.method}
                   name="method"
-                  onChange={(e: any) =>
+                  onChange={(e) =>
                     updatedEndpointDataHandler(index, "method", e.target.value)
                   }
                   options={methodsOptions}
@@ -143,7 +146,7 @@ export default function endPoint() {
                   label="Output"
                   value={endpoint.output_encoding}
                   name="output_encoding"
-                  onChange={(e: any) =>
+                  onChange={(e) =>
                     updatedEndpointDataHandler(
                       index,
                       "output_encoding",
@@ -232,7 +235,7 @@ export default function endPoint() {
                           label="Method"
                           value={endpoint.backend[0].method}
                           name="backend_method"
-                          onChange={(e: any) =>
+                          onChange={(e) =>
                             updateEndpointBackendHandler(
                               index,
                               "method",
@@ -258,7 +261,7 @@ export default function endPoint() {
                               </a>
                             </span>
                           }
-                          onChange={(e: any) =>
+                          onChange={(e) =>
                             updateEndpointBackendHandler(
                               index,
                               "url_pattern",
@@ -271,7 +274,7 @@ export default function endPoint() {
                           label="Decode as:"
                           value={endpoint.backend[0].method}
                           name="output_encoding"
-                          onChange={(e: any) =>
+                          onChange={(e) =>
                             updateEndpointBackendHandler(
                               index,
                               "encoding",

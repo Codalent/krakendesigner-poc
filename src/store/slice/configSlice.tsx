@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+type SliceState = {
+  $schema: string;
+  cache_ttl: string;
+  name: string;
+  output_encoding: string;
+  timeout: string;
+};
+
+const initialState: SliceState = {
   $schema: "https://www.krakend.io/schema/krakend.json",
   cache_ttl: "300s",
   name: "KrakenD - API Gateway",
@@ -13,7 +21,7 @@ const configSlice = createSlice({
   initialState,
   reducers: {
     updateConfig: (state, action) => {
-      state[action.payload.key] = action.payload.value;
+      state[action.payload.key as keyof SliceState] = action.payload.value;
     },
   },
 });

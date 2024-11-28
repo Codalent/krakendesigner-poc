@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { RootState } from "@/store/slice";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const preview = () => {
-  const { data: endpoints } = useSelector((state: any) => state.endpoints);
+  const { data: endpoints } = useSelector(
+    (state: RootState) => state.endpoints
+  );
+  const config = useSelector((state: RootState) => state.config);
   const [previewObj, setPreviewObj] = useState({});
 
   const createPreviewObjHandler = () => {
-    const baseObject: any = {
-      $schema: "https://www.krakend.io/schema/krakend.json",
-      version: 3,
-      name: "KrakenD - API Gateway",
-      timeout: "3000ms",
-      cache_ttl: "300s",
-    };
+    const krakendConfig: KrakendConfig = { ...config };
     if (endpoints.length > 0) {
-      baseObject["endpoints"] = endpoints;
+      krakendConfig["endpoints"] = endpoints;
     }
-    setPreviewObj(baseObject);
+    setPreviewObj(krakendConfig);
   };
 
   useEffect(() => {

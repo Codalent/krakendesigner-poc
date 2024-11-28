@@ -1,17 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  data: [],
+type SliceState = {
+  data: {
+    endpoint: string;
+    method: Methods;
+    output_encoding: string;
+    backend: [
+      {
+        url_pattern: string;
+        encoding: string;
+        sd: string;
+        method: Methods;
+      }
+    ];
+  }[];
 };
+
+const initialState: SliceState = { data: [] };
 
 const endpointsSlice = createSlice({
   name: "endpoints",
   initialState,
   reducers: {
-    addEndpoint: (state: any, action: any) => {
+    addEndpoint: (state, action) => {
       state.data = [...state.data, action.payload];
     },
-    updateEndpoint: (state: any, action: any) => {
+    updateEndpoint: (state, action) => {
       state.data = action.payload;
     },
     removeEndpoint: (state, action) => {

@@ -1,10 +1,9 @@
-import { FC, useEffect, useRef, useState } from "react";
+import getPillColor from "@/constants/pillColors";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AccordionProps } from "./types";
+import { FC, useEffect, useRef, useState } from "react";
 import Pill from "../pill";
-import PillColors from "@/constants/pillColors";
-import getPillColor from "@/constants/pillColors";
+import { AccordionProps } from "./types";
 
 const Accordion: FC<AccordionProps> = ({
   toggleAccordionHandler,
