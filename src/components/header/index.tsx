@@ -18,24 +18,18 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: endpoints } = useSelector((state: any) => state.endpoints);
+  const config = useSelector((state: any) => state.config);
 
   // Opens KrakenD config new tab
   const openConfig = () => {
-    const config = {
-      $schema: "https://www.krakend.io/schema/krakend.json",
-      version: 3,
-      name: "KrakenD - API Gateway",
-      timeout: "3000ms",
-      cache_ttl: "300s",
-    };
-
+    const krakendConfig = { ...config };
     if (endpoints.length > 0) {
-      config["endpoints"] = endpoints;
+      krakendConfig["endpoints"] = endpoints;
     }
 
     const configWindow = window.open();
     configWindow?.document.write(
-      `<pre>${JSON.stringify(config, null, 2)}</pre>`
+      `<pre>${JSON.stringify(krakendConfig, null, 2)}</pre>`
     );
     configWindow?.focus();
   };

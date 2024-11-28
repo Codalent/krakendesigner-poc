@@ -30,9 +30,9 @@ function Select(props: SelectInputProps) {
         ))}
       </select>
       {info && (
-        <p className="text--sm font-normal my-2 text-brand-neutral-600">
+        <div className="text--sm font-normal my-2 text-brand-neutral-600">
           {info}
-        </p>
+        </div>
       )}
     </div>
   );
