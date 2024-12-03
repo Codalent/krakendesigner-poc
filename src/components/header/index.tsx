@@ -20,6 +20,24 @@ export default function Header() {
   const { data: endpoints } = useSelector((state: any) => state.endpoints);
   const config = useSelector((state: any) => state.config);
 
+  // Download config
+  const downloadConfig = () => {
+    const krakendConfig = { ...config };
+    if (endpoints.length > 0) {
+      krakendConfig["endpoints"] = endpoints;
+    }
+
+    const blob = new Blob([JSON.stringify(krakendConfig, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "krakend.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   // Opens KrakenD config new tab
   const openConfig = () => {
     const krakendConfig = { ...config };
@@ -65,7 +83,7 @@ export default function Header() {
               <FontAwesomeIcon icon={faFolderOpen} className="mr-1" />
               Open a local file <samp>(^O)</samp>
             </button>
-            <button className="button--secondary">
+            <button className="button--secondary" onClick={downloadConfig}>
               <FontAwesomeIcon icon={faCopy} className="mr-1" />
               Download config <samp>(^D)</samp>
             </button>
