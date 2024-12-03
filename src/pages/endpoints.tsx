@@ -1,4 +1,4 @@
-import Accordion from "@/components/common/accordion";
+import Accordion from "@/components/common/Accordion";
 import Input from "@/components/common/inputs/input";
 import Select from "@/components/common/inputs/select";
 import Pill from "@/components/common/pill";
