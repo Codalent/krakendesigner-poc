@@ -1,4 +1,6 @@
 import Layout from "@/components/layout";
+import ActionCall from "@/components/wrapper/ActionCall";
+import SchemaContextProvider from "@/context/schemaContext";
 import store from "@/store/store";
 import "@/styles/main.scss";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -11,14 +13,17 @@ const inter = Inter({ subsets: ["latin"] });
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Layout>
-        <style jsx global>{`
-          html {
-            font-family: ${inter.style.fontFamily};
-          }
-        `}</style>
-        <Component {...pageProps} />
-      </Layout>
+      <SchemaContextProvider>
+        <ActionCall />
+        <Layout>
+          <style jsx global>{`
+            html {
+              font-family: ${inter.style.fontFamily};
+            }
+          `}</style>
+          <Component {...pageProps} />
+        </Layout>
+      </SchemaContextProvider>
     </Provider>
   );
 }

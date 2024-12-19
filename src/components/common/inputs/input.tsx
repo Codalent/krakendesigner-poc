@@ -35,9 +35,10 @@ function Input(props: InputProps) {
         onChange={onChange}
       />
       {info && (
-        <div className="text--sm font-normal my-2 text-brand-neutral-600">
-          {info}
-        </div>
+        <div
+          className="text--sm font-normal my-2 text-brand-neutral-600"
+          dangerouslySetInnerHTML={{ __html: info }}
+        />
       )}
     </div>
   );

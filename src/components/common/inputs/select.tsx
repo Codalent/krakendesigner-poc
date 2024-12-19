@@ -11,6 +11,7 @@ function Select(props: SelectInputProps) {
     onChange,
     options,
     wrapperClassName,
+    value,
   } = props;
 
   const id = useId();
@@ -24,15 +25,16 @@ function Select(props: SelectInputProps) {
       >
         {label}
       </label>
-      <select name={name} onChange={onChange}>
+      <select name={name} value={value} onChange={onChange}>
         {options.map((option) => (
           <option key={option.value}>{option.label}</option>
         ))}
       </select>
       {info && (
-        <div className="text--sm font-normal my-2 text-brand-neutral-600">
-          {info}
-        </div>
+        <div
+          className="text--sm font-normal my-2 text-brand-neutral-600"
+          dangerouslySetInnerHTML={{ __html: info }}
+        />
       )}
     </div>
   );
